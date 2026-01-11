@@ -1,0 +1,10 @@
+{
+  "name": "publii",
+  "version": "1.0.0",
+  "description": "Publii CMS Integration - Blog-Posts und Pages erstellen",
+  "author": {
+    "name": "Valgard"
+  },
+  "license": "MIT",
+  "keywords": ["publii", "cms", "blog", "sqlite"]
+}
