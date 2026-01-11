@@ -1,0 +1,7 @@
+{
+  "publii": {
+    "command": "uv",
+    "args": ["run", "publii-mcp", "serve"],
+    "cwd": "/Users/valgard/Projects/private/publii-mcp"
+  }
+}
