@@ -1,7 +1,9 @@
 # publii - Claude Code Plugin
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/valgard/publii-claude-code)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Version](https://img.shields.io/badge/version-1.0.0-green)](https://github.com/trontheim/publii-claude-code/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Skills](https://img.shields.io/badge/Skills-2-blue)](skills/)
+[![Claude Code Plugin](https://img.shields.io/badge/Claude_Code-Plugin-blueviolet)](https://github.com/anthropics/claude-code)
 
 Claude Code Plugin für Publii CMS Integration. Ermöglicht das Erstellen und Bearbeiten von Blog-Posts und statischen Seiten direkt aus Claude Code.
 
@@ -52,7 +54,7 @@ uv sync
 uv run publii-mcp serve
 ```
 
-Die `.mcp.json` im Plugin-Verzeichnis konfiguriert den Server automatisch.
+Der MCP-Server wird über das separate `publii-mcp` Repository konfiguriert (siehe [Zwei-Repo-Architektur](#architektur)).
 
 ## Skills
 
@@ -132,6 +134,34 @@ uv sync --reinstall
 - Publii muss für Veröffentlichung synchronisiert werden
 
 Weitere Troubleshooting-Informationen: [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)
+
+## Architektur
+
+Dieses Projekt besteht aus **zwei separaten Repositories**:
+
+| Repository | Inhalt | Zweck |
+|------------|--------|-------|
+| **publii-mcp** | MCP-Server (Python) + MCP-Config | Stellt Tools bereit (`mcp__plugin_publii_publii__*`) |
+| **publii-claude-code** | Skills + Templates | Workflows (`/publii:post`, `/publii:page`) |
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                   Claude Code CLI                        │
+├────────────────────────┬────────────────────────────────┤
+│  publii-claude-code    │         publii-mcp             │
+│  (dieses Repo)         │    (separates Repo)            │
+│  ├── Skills            │    ├── MCP-Server (Python)     │
+│  └── Templates         │    └── .mcp.json               │
+└────────────────────────┴────────────────────────────────┘
+```
+
+**Wichtig:** Beide Repositories müssen als Claude Code Plugins installiert sein:
+```bash
+claude plugins add /path/to/publii-mcp
+claude plugins add /path/to/publii-claude-code
+```
+
+Detaillierte Architektur-Informationen: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
 
 ## Lizenz
 

@@ -4,23 +4,39 @@ Technische Übersicht und Design-Entscheidungen des Publii Claude Code Plugins.
 
 ## Systemübersicht
 
+### Zwei-Repository-Architektur
+
+Das Publii-Integration besteht aus zwei separaten Repositories:
+
+| Repository | Inhalt | Zweck |
+|------------|--------|-------|
+| **publii-mcp** | MCP-Server (Python) + `.mcp.json` | Stellt Tools bereit |
+| **publii-claude-code** | Skills + Templates | Definiert Workflows |
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                      Claude Code CLI                         │
-├─────────────────────────────────────────────────────────────┤
-│  /publii:post          /publii:page                         │
-│  (skills/post/)        (skills/page/)                       │
-├─────────────────────────────────────────────────────────────┤
+├──────────────────────────────┬──────────────────────────────┤
+│    publii-claude-code        │         publii-mcp           │
+│    (Skills Repository)       │    (MCP-Server Repository)   │
+│  ┌────────────────────────┐  │  ┌────────────────────────┐  │
+│  │  /publii:post          │  │  │  MCP-Server (Python)   │  │
+│  │  /publii:page          │  │  │  .mcp.json             │  │
+│  │  Templates             │  │  │  SQLite-Operationen    │  │
+│  └────────────────────────┘  │  └────────────────────────┘  │
+├──────────────────────────────┴──────────────────────────────┤
 │                    MCP Protocol Layer                        │
 │              mcp__plugin_publii_publii__*                    │
-├─────────────────────────────────────────────────────────────┤
-│                    publii-mcp Server                         │
-│                   (Python/SQLite)                            │
 ├─────────────────────────────────────────────────────────────┤
 │                     Publii CMS                               │
 │              ~/Documents/Publii/sites/                       │
 └─────────────────────────────────────────────────────────────┘
 ```
+
+**Warum zwei Repositories?**
+1. **Trennung von Concerns** - Server-Logik (Python) getrennt von Workflow-Definition (Markdown)
+2. **Unabhängige Versionierung** - MCP-Server kann aktualisiert werden ohne Skills zu ändern
+3. **Wiederverwendbarkeit** - Skills können mit anderen MCP-Servern kombiniert werden
 
 ## Design-Entscheidungen
 
@@ -88,21 +104,26 @@ Technische Übersicht und Design-Entscheidungen des Publii Claude Code Plugins.
 
 ### MCP-Server Konfiguration
 
-**Datei:** `.mcp.json`
+**Repository:** `publii-mcp` (separates Repository)
+
+Die MCP-Server Konfiguration befindet sich im `publii-mcp` Repository, nicht in diesem Plugin. Der Server konfiguriert sich selbst über seine eigene `.mcp.json`:
 
 ```json
 {
   "mcpServers": {
     "publii": {
       "command": "uv",
-      "args": ["run", "publii-mcp", "serve"],
-      "cwd": "/path/to/publii-mcp"
+      "args": ["run", "publii-mcp", "serve"]
     }
   }
 }
 ```
 
-**Zweck:** Verbindet Claude Code mit dem Publii MCP-Server.
+**Wichtig:** Beide Plugins müssen installiert sein:
+```bash
+claude plugins add /path/to/publii-mcp        # MCP-Server + Konfiguration
+claude plugins add /path/to/publii-claude-code # Skills + Templates
+```
 
 ### Skills
 
@@ -188,11 +209,12 @@ mcp__plugin_publii_publii__<action>
 
 ## Verzeichnisstruktur
 
+### publii-claude-code (dieses Repository)
+
 ```
 publii-claude-code/
 ├── .claude-plugin/
 │   └── plugin.json          # Plugin-Metadaten
-├── .mcp.json                 # MCP-Server Konfiguration
 ├── CLAUDE.md                 # Projekt-Konventionen
 ├── README.md                 # Benutzer-Dokumentation
 ├── LICENSE                   # MIT Lizenz
@@ -212,6 +234,18 @@ publii-claude-code/
         └── SKILL.md          # Page-Skill Definition
 ```
 
+### publii-mcp (separates Repository)
+
+```
+publii-mcp/
+├── .claude-plugin/
+│   └── plugin.json          # Plugin-Metadaten
+├── .mcp.json                 # MCP-Server Konfiguration
+├── pyproject.toml           # Python-Projekt
+└── src/
+    └── publii_mcp/          # MCP-Server Implementierung
+```
+
 ## Erweiterungspunkte
 
 ### Neuen Skill hinzufügen
@@ -228,6 +262,7 @@ publii-claude-code/
 
 ### Neuen MCP-Server einbinden
 
-1. Server in `.mcp.json` konfigurieren
+1. Separates MCP-Server Repository erstellen (mit eigener `.mcp.json`)
 2. Tools in Skill-Dateien dokumentieren
 3. API_REFERENCE.md aktualisieren
+4. Beide Plugins installieren (`claude plugins add`)
