@@ -1,6 +1,6 @@
 # Template: Vereinsnews
 
-## Benotigte Informationen
+## Benötigte Informationen
 
 Frage den User nach:
 - Anlass/Thema der News
@@ -18,13 +18,13 @@ Frage den User nach:
 <p>[Hauptinhalt mit allen wichtigen Informationen]</p>
 
 <h2>Weitere Informationen</h2>
-<p>[Call-to-Action: Anmeldung, Kontakt, nachste Schritte]</p>
+<p>[Call-to-Action: Anmeldung, Kontakt, nächste Schritte]</p>
 <p>Bei Fragen wenden Sie sich an [Kontakt].</p>
 ```
 
 ## Beispiel-Fragen
 
-1. "Was ist der Anlass fur diese News?"
-2. "Welche Details sind wichtig fur die Leser?"
+1. "Was ist der Anlass für diese News?"
+2. "Welche Details sind wichtig für die Leser?"
 3. "Gibt es ein Datum oder eine Deadline?"
-4. "Was sollen die Leser als nachstes tun?"
+4. "Was sollen die Leser als nächstes tun?"

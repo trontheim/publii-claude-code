@@ -1,53 +1,53 @@
 ---
 name: page
-description: Erstellt oder bearbeitet statische Seiten fur Publii. Nutze fur Impressum, Uber uns, Kontakt etc.
+description: Erstellt oder bearbeitet statische Seiten für Publii. Nutze für Impressum, Über uns, Kontakt etc.
 ---
 
-# Statische Seite fur Publii erstellen
+# Statische Seite für Publii erstellen
 
-## Verfugbare MCP Tools
+## Verfügbare MCP Tools
 
 - `mcp__plugin_publii_publii__list_sites` - Sites auflisten
 - `mcp__plugin_publii_publii__list_pages` - Pages auflisten
 - `mcp__plugin_publii_publii__get_page` - Page lesen
 - `mcp__plugin_publii_publii__create_page` - Page erstellen
 - `mcp__plugin_publii_publii__update_page` - Page aktualisieren
-- `mcp__plugin_publii_publii__delete_page` - Page loschen
+- `mcp__plugin_publii_publii__delete_page` - Page löschen
 
 ## Ablauf
 
 ### 1. Site ermitteln
 
-Prufe CLAUDE.md auf `publii_default_site`.
+Prüfe CLAUDE.md auf `publii_default_site`.
 
 Falls nicht vorhanden:
 - `mcp__plugin_publii_publii__list_sites` aufrufen
 - User nach Auswahl fragen
 
-### 2. Seiten-Typ klaren
+### 2. Seiten-Typ klären
 
 Frage den User:
-> "Mochtest du eine **neue Seite erstellen** oder eine **bestehende bearbeiten**?"
+> "Möchtest du eine **neue Seite erstellen** oder eine **bestehende bearbeiten**?"
 
 Bei bestehender Seite:
 - `mcp__plugin_publii_publii__list_pages` aufrufen
 - Liste anzeigen
-- User wahlt aus
-- `mcp__plugin_publii_publii__get_page` fur aktuellen Inhalt
+- User wählt aus
+- `mcp__plugin_publii_publii__get_page` für aktuellen Inhalt
 
 ### 3. Content erstellen
 
 **HTML generieren, NICHT Markdown!**
 
-Fur rechtliche Seiten (Impressum, Datenschutz):
+Für rechtliche Seiten (Impressum, Datenschutz):
 - Frage nach allen notwendigen Angaben
 - Verwende korrektes rechtliches Format
-- Prufe auf Vollstandigkeit
+- Prüfe auf Vollständigkeit
 
 Typische Seiten:
 - **Impressum**: Name, Adresse, Kontakt, Vereinsregister
 - **Datenschutz**: Verantwortlicher, Datenverarbeitung, Rechte
-- **Uber uns**: Vereinsgeschichte, Team, Mission
+- **Über uns**: Vereinsgeschichte, Team, Mission
 - **Kontakt**: Anschrift, Telefon, E-Mail, Anfahrt
 
 ### 4. Speichern
@@ -69,15 +69,15 @@ mcp__plugin_publii_publii__update_page(
 )
 ```
 
-### 5. Bestatigung
+### 5. Bestätigung
 
 > "Seite '[Titel]' gespeichert (ID: 42, Status: Draft).
 >
-> Offne Publii und klicke 'Sync' um die Anderungen zu veroffentlichen."
+> Öffne Publii und klicke 'Sync' um die Änderungen zu veröffentlichen."
 
 ## Beispiel: Impressum erstellen
 
-**User:** "Erstelle ein Impressum fur unseren Verein"
+**User:** "Erstelle ein Impressum für unseren Verein"
 
 **Assistent:**
 
@@ -91,10 +91,10 @@ mcp__plugin_publii_publii__update_page(
 2. Generiert HTML:
 
 ```html
-<h2>Angaben gemaess 5 TMG</h2>
+<h2>Angaben gemäß § 5 TMG</h2>
 <p>
   <strong>[Vereinsname]</strong><br>
-  [Strasse Nr.]<br>
+  [Straße Nr.]<br>
   [PLZ Ort]
 </p>
 
@@ -116,4 +116,4 @@ mcp__plugin_publii_publii__update_page(
 ```
 
 3. Speichert als Draft
-4. Zeigt Bestatigung
+4. Zeigt Bestätigung

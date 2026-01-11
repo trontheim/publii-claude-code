@@ -1,6 +1,6 @@
 # Template: Wettkampfbericht
 
-## Benotigte Informationen
+## Benötigte Informationen
 
 Frage den User nach:
 - Wettkampfname und Datum
@@ -15,7 +15,7 @@ Frage den User nach:
 <p>Am [Datum] fand [Wettkampfname] in [Ort] statt. [Kurze Zusammenfassung].</p>
 
 <h2>Unsere Ergebnisse</h2>
-<p>Folgende Sportler waren fur unseren Verein am Start:</p>
+<p>Folgende Sportler waren für unseren Verein am Start:</p>
 <ul>
   <li><strong>[Name]</strong>: [Platzierung] in [Kategorie]</li>
   <!-- Weitere Teilnehmer -->
@@ -25,12 +25,12 @@ Frage den User nach:
 <p>[Besondere Momente, Zitate, Erfolge]</p>
 
 <h2>Ausblick</h2>
-<p>Der nachste Wettkampf [Info zu kommenden Events]. Wir danken [Trainer/Eltern/etc.].</p>
+<p>Der nächste Wettkampf [Info zu kommenden Events]. Wir danken [Trainer/Eltern/etc.].</p>
 ```
 
 ## Beispiel-Fragen
 
-1. "Wie hiess der Wettkampf und wann fand er statt?"
+1. "Wie hieß der Wettkampf und wann fand er statt?"
 2. "Wo wurde der Wettkampf ausgetragen?"
 3. "Welche Sportler waren dabei und wie haben sie abgeschnitten?"
 4. "Gab es besondere Highlights oder Erfolge?"
